@@ -4,7 +4,9 @@ import MainLayout from "./layouts/MainLayout.jsx";
 import LoginLayout from "./layouts/LoginLayout.jsx";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
+import Join from "./pages/Join.jsx";
 import Login from "./pages/Login.jsx";
+import Donate from "./pages/Donate.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 const router = createBrowserRouter([
@@ -13,7 +15,9 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "about", element: <About /> },
+      { path: "/about", element: <About /> },
+      { path: "/join", element: <Join/>},
+      { path: "/donate", element: <Donate/>}
     ],
   },
   {

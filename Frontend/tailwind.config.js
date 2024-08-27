@@ -12,6 +12,7 @@ export default {
         "custom-blue": "#103b5e",
         "navbar-blue": "#2b5b84",
         "select-blue": "#3776ab",
+        "back-color": "#f9f9f9",
       },
     },
   },

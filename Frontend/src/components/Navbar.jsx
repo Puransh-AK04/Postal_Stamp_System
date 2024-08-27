@@ -17,7 +17,7 @@ function Navbar() {
             (item, index) => (
               <li key={index} className="relative flex items-center">
                 {index > 0 && <span className="mr-2">|</span>}
-                <span>{item}</span>
+                <button className="rounded-lg hover:bg-navbar-blue p-3">{item}</button>
               </li>
             )
           )}

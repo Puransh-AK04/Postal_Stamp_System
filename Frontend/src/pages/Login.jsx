@@ -4,7 +4,7 @@ const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
 
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-gray-100 font-serif">
+    <div className="w-full h-screen flex justify-center items-center bg-back-color font-serif">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-2xl font-bold mb-6 text-center">
           {isSignUp ? "Sign Up" : "Login"}
