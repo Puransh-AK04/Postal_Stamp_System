@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import stamp from "../assets/Home_Stamp.jpeg";
 
 const About = () => {
@@ -26,9 +27,11 @@ const About = () => {
             ipsum tempora! Itaque quam debitis dolor nulla magni.
           </div>
           <div className="flex justify-center">
-            <button className="bg-navbar-blue text-amber-300 px-6 py-2 rounded-lg hover:bg-custom-blue transition duration-200 font-semibold">
-              Join Now!
-            </button>
+            <Link to="/join">
+              <button className="bg-navbar-blue text-amber-300 px-6 py-2 rounded-lg hover:bg-custom-blue transition duration-200 font-semibold">
+                Join Now!
+              </button>
+            </Link>
           </div>
         </div>
       </div>
