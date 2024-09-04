@@ -10,6 +10,7 @@ import Donate from "./pages/Donate.jsx";
 import Shop from './pages/Shop.jsx';
 import Library from './pages/Library.jsx'
 import NotFound from "./pages/NotFound.jsx";
+import ChatApp from "./pages/ChatApp.jsx";
 import StampDetails from "./pages/StampDetails.jsx";
 
 const stamps = [
@@ -193,6 +194,7 @@ const router = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/join", element: <Join/>},
       { path: "/donate", element: <Donate/>},
+      { path: "/chatapp", element: <ChatApp/>},
       { path: "/shop", element: <Shop/>},
       { path: "/library", element: <Library/> },
       { path: "/details/:id", element: <StampDetails stamps={stamps}/>}

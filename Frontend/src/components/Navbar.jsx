@@ -63,7 +63,11 @@ function Navbar() {
                     : undefined
                 }
               >
-                {item === "Shop" ? (
+                {item === "Community" ? (
+                  <Link to="/chatapp" className="flex items-center">
+                    <span className="px-2">{item}</span>
+                  </Link>
+                ) : item === "Shop" ? (
                   <Link to="/shop" className="flex items-center">
                     <span className="px-2">{item}</span>
                   </Link>
