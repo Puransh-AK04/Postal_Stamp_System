@@ -1,8 +1,27 @@
 import React from "react";
-import { TfiAngleDown } from "react-icons/tfi";
-import { TfiAngleUp } from "react-icons/tfi";
+import { Link, useNavigate } from "react-router-dom";
+import { TfiAngleDown, TfiAngleUp } from "react-icons/tfi";
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  // Function to get the current day of the year
+  const getDayOfYear = () => {
+    const start = new Date(new Date().getFullYear(), 0, 0);
+    const diff = new Date() - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  };
+
+  // Function to handle "Stamp of The Day" click
+  const handleStampOfTheDayClick = () => {
+    const stampIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    const dayOfYear = getDayOfYear();
+    const stampIndex = dayOfYear % stampIds.length; // Ensure index is within bounds
+    const stampId = stampIds[stampIndex];
+    navigate(`/details/${stampId}`);
+  };
+
   return (
     <div className="justify-between text-amber-300 font-serif bg-custom-blue pb-5">
       <div className="h-20 pl-20 flex items-center justify-between">
@@ -14,72 +33,46 @@ function Navbar() {
         </div>
         <ul className="flex items-center space-x-4 pr-10 font-semibold">
           {["About", "Contact", "Join", "Donate", "Login"].map(
-            (item, index) => (
-              <li key={index} className="relative flex items-center">
-                {index > 0 && <span className="mr-2">|</span>}
-                <button className="rounded-lg hover:bg-navbar-blue p-3">{item}</button>
-              </li>
-            )
+            (item, index) => {
+              const route = item.toLowerCase();
+              return (
+                <li key={index} className="relative flex items-center">
+                  {index > 0 && <span className="mr-2">|</span>}
+                  <Link
+                    to={`/${route}`}
+                    className="rounded-lg hover:bg-navbar-blue p-3"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              );
+            }
           )}
         </ul>
-        {/* <ul className="flex items-center space-x-4 pr-10 font-semibold">
-          <li className="relative">
-            <span>About</span>
-          </li>
-          <li className="relative">
-            <span className="mr-2">|</span>
-            <span>Contact</span>
-          </li>
-          <li className="relative">
-            <span className="mr-2">|</span>
-            <span>Join</span>
-          </li>
-          <li className="relative">
-            <span className="mr-2">|</span>
-            <span>Donate</span>
-          </li>
-          <li className="relative">
-            <span className="mr-2">|</span>
-            <span>Login</span>
-          </li>
-        </ul> */}
       </div>
-      {/* <div className="flex z-10 bg-navbar-blue p-2 w-3/5 mx-auto justify-center font-semibold rounded-lg">
-        <ul className="flex justify-between">
-          <li className="hover:bg-amber-300 hover:text-navbar-blue p-4 rounded-lg flex">
-            <span className="px-2">Member Benefits</span>
-            <TfiAngleDown className="pt-1" />
-          </li>
-          <li className="hover:bg-amber-300 hover:text-navbar-blue p-4 rounded-lg flex">
-            <span className="px-2">Community</span>
-            <TfiAngleDown className="pt-1" />
-          </li>
-          <li className="hover:bg-amber-300 hover:text-navbar-blue p-4 rounded-lg flex">
-            <span className="px-2">Shop</span>
-            <TfiAngleDown className="pt-1" />
-          </li>
-          <li className="hover:bg-amber-300 hover:text-navbar-blue p-4 rounded-lg flex">
-            <span className="px-2">Event</span>
-            <TfiAngleDown className="pt-1" />
-          </li>
-          <li className="hover:bg-amber-300 hover:text-navbar-blue p-4 rounded-lg flex">
-            <span className="px-2">News</span>
-            <TfiAngleDown className="pt-1" />
-          </li>
-        </ul>
-      </div> */}
       <div className="flex z-10 bg-navbar-blue p-2 w-3/5 mx-auto justify-center font-semibold rounded-lg">
         <ul className="flex justify-between">
-          {["Member Benefits", "Community", "Shop", "Event", "News"].map(
+          {["Member Benefits", "Community", "Shop", "Stamp of The Day"].map(
             (item, index) => (
               <li
                 key={index}
-                className="group hover:bg-amber-300 hover:text-navbar-blue p-4 rounded-lg flex items-center"
+                className="group hover:bg-amber-300 hover:text-navbar-blue p-4 rounded-lg flex items-center cursor-pointer"
+                onClick={
+                  item === "Stamp of The Day"
+                    ? handleStampOfTheDayClick
+                    : undefined
+                }
               >
-                <span className="px-2">{item}</span>
+                {item === "Shop" ? (
+                  <Link to="/shop" className="flex items-center">
+                    <span className="px-2">{item}</span>
+                  </Link>
+                ) : (
+                  <span className="px-2">{item}</span>
+                )}
                 <span className="pt-1">
-                  <TfiAngleDown className="group-hover:hidden" />
-                  <TfiAngleUp className="hidden group-hover:block" />
+                  {/* <TfiAngleDown className="group-hover:hidden" />
+                  <TfiAngleUp className="hidden group-hover:block" /> */}
                 </span>
               </li>
             )
