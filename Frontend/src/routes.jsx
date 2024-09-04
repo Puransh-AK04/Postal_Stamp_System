@@ -8,6 +8,7 @@ import Join from "./pages/Join.jsx";
 import Login from "./pages/Login.jsx";
 import Donate from "./pages/Donate.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import ChatApp from "./pages/ChatApp.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/about", element: <About /> },
       { path: "/join", element: <Join/>},
-      { path: "/donate", element: <Donate/>}
+      { path: "/donate", element: <Donate/>},
+      { path: "/chatapp", element: <ChatApp/>}
     ],
   },
   {
