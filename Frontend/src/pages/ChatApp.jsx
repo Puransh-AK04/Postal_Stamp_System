@@ -23,6 +23,8 @@ const ChatApp = () => {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
+  const [isSending, setIsSending] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
@@ -48,8 +50,8 @@ const ChatApp = () => {
       navigate("/login");
       return;
     }
-
-    fetchMessages();
+    setIsInitialLoading(true);
+    fetchMessages().finally(() => setIsInitialLoading(false));
     // Poll for new messages every 3 seconds
     const interval = setInterval(fetchMessages, 3000);
 
@@ -71,6 +73,7 @@ const ChatApp = () => {
     }
 
     try {
+      setIsSending(true);
       let fileUrl = null;
       if (selectedFile) {
         // In a real app, you would upload the file to a storage service
@@ -97,6 +100,9 @@ const ChatApp = () => {
       console.error("Error sending message:", error);
       alert("Failed to send message. Please try again.");
     }
+    finally {
+      setIsSending(false);
+    }
   };
 
   const handleEmojiSelect = (emoji) => {
@@ -120,7 +126,20 @@ const ChatApp = () => {
     <div className="chat-container">
       <div className="chat-box">
         <div className="messages">
-          {messages.map((msg) => (
+          {isInitialLoading && (
+            <div className="loading-state">
+              <div className="spinner" />
+              <span>Loading messages…</span>
+            </div>
+          )}
+          {!isInitialLoading && messages.length === 0 && (
+            <div className="empty-state">
+              <div className="empty-icon">💬</div>
+              <div className="empty-title">No messages yet</div>
+              <div className="empty-subtitle">Say hello and start the conversation.</div>
+            </div>
+          )}
+          {!isInitialLoading && messages.length > 0 && messages.map((msg) => (
             <div
               key={msg._id}
               className={`message ${msg.file ? "media-message" : ""} ${
@@ -162,7 +181,12 @@ const ChatApp = () => {
             }}
             placeholder="Type a message..."
           />
-          <button onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}>
+          <button
+            className="emoji-button"
+            type="button"
+            aria-label="Toggle emoji picker"
+            onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}
+          >
             😊
           </button>
           {emojiPickerVisible && <EmojiPicker onSelect={handleEmojiSelect} />}
@@ -186,7 +210,14 @@ const ChatApp = () => {
               />
             </div>
           )}
-          <button onClick={handleSubmit}>Send</button>
+          <button
+            className="send-button"
+            type="submit"
+            onClick={handleSubmit}
+            disabled={isSending || (!input.trim() && !selectedFile)}
+          >
+            {isSending ? "Sending..." : "Send"}
+          </button>
         </div>
       </div>
     </div>
